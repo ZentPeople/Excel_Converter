@@ -23,6 +23,12 @@ app.use((req, res, next) => {
 
 app.use("/", financeRouter);
 
+// send 404 for wrong endpoint
+app.use("/", (req, res, next) => {
+  const error = new Error("Sorry the page you are looking for is not found");
+  error.statusCode = 404;
+  next(error);
+});
 // Error Handler
 app.use((error, req, res, next) => {
   const status = error.statusCode || 500;
