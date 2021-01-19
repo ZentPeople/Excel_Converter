@@ -1,5 +1,5 @@
 {
-  "name": "north-loop",
+  "name": "sample_api",
   "version": "1.0.0",
   "description": "Sample Rest API",
   "main": "app.js",
