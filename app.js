@@ -2,7 +2,10 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const helmet = require("helmet");
 const compression = require("compression");
-const financeRouter = require("./router/finance");
+const mongoose = require("mongoose");
+const multer = require("multer");
+
+const onboardingRouter = require("./router/onboarding");
 
 const app = express();
 
@@ -21,7 +24,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", financeRouter);
+app.use("/", onboardingRouter);
 
 // send 404 for wrong endpoint
 app.use("/", (req, res, next) => {
@@ -38,7 +41,18 @@ app.use((error, req, res, next) => {
   res.status(status).json({ success: false, message: message, data: data });
 });
 
-// Start app
-app.listen(process.env.PORT || 8080);
+// Connect to database and start app
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
+  .then((result) => {
+    console.log("MongoDb connected");
+    app.listen(process.env.PORT || 8080);
+  })
+  .catch((err) => console.log(err));
 
 module.exports = app;

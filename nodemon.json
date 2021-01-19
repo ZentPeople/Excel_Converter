@@ -1,5 +1,5 @@
 {
   "env": {
-    "MONGO_URI": "mongodb+srv://mohan_su:9965763282@buildtheempire-nbvai.mongodb.net/V-Cart_Dev?retryWrites=true&w=majority"
+    "MONGO_URI": "*****************"
   }
 }
